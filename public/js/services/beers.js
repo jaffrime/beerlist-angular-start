@@ -22,12 +22,18 @@ app.factory("beerFactory", function(){
   var addBeer = function (newBeer){
     console.log(newBeer);
 
+    for (i=0; i<beerList.length; i++) {
+      if (beerList[i].name === newBeer.name) {
+        alert("Beer already in list");
+        return;
+      }
+    } 
+    // "else..."
     // NOTE: breaking angular binding
     beerList.push(angular.copy(newBeer,{}));
 
     // NOTE: old/normal code
     // beerList.push(newBeer);
-
   };
 
   // var addBeer = function (beer){
@@ -43,9 +49,13 @@ app.factory("beerFactory", function(){
   //   beerList.push(newBeer);
   // };
 
+  var removeBeer = function (index){
+    beerList.splice(index,1);
+  };
 
   return {
     beerList: beerList,
     addBeer: addBeer,
+    removeBeer: removeBeer
   };
 })

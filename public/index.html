@@ -22,6 +22,7 @@
                       <h3>{{beers.name}}</h3>
                       <img ng-src={{beers.image}}>
                       <p>Style: {{beers.style}} <br/> ABV: {{beers.abv}}</p>
+                      <input type="button" value="Remove" class="btn btn-danger" ng-click="removeBeer($index)" />
                     </div>
                   </div>
                 </div>
