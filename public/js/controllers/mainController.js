@@ -6,5 +6,6 @@ app.controller("mainCtrl", function($scope, beerFactory) {
   $scope.addBeer = beerFactory.addBeer;
   $scope.removeBeer = beerFactory.removeBeer;
   $scope.addRating = beerFactory.addRating;
+  $scope.ratings = [1,2,3,4,5];
 
 });
