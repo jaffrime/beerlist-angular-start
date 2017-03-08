@@ -74,10 +74,20 @@ app.factory("beerFactory", function(){
     beerList[index].rating = tempAvg.toFixed(1);
   };
 
+  var sortOrder = false;
+
+  var sortBeers = function (){
+    console.log(sortOrder);
+    sortOrder = !sortOrder;
+    console.log(sortOrder);
+  }
+
   return {
     beerList: beerList,
     addBeer: addBeer,
     removeBeer: removeBeer,
-    addRating: addRating
+    addRating: addRating,
+    sortBeers: sortBeers,
+    sortOrder: sortOrder
   };
 })
