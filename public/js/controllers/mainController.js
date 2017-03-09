@@ -9,4 +9,6 @@ app.controller("mainCtrl", function($scope, beerFactory) {
   $scope.ratings = [1,2,3,4,5];
   $scope.sortBeers = beerFactory.sortBeers;
   $scope.sortOrder = beerFactory.sortOrder;
+
+
 });
