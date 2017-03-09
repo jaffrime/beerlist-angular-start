@@ -66,18 +66,49 @@ app.factory("beerFactory", function(){
     beerList.splice(index,1);
   };
 
-  var addRating = function (index, rating){
-    console.log(index + " " + rating);
-    beerList[index].rateSum += rating;
-    beerList[index].rateQuant += 1;
-    var tempAvg = beerList[index].rateSum / beerList[index].rateQuant;
-    beerList[index].rating = tempAvg.toFixed(1);
+  // old method w/ index
+  // var addRating = function (index, rating){
+  //   console.log(index);
+    // console.log(index + " " + rating);
+    // beerList[index].rateSum += rating;
+    // beerList[index].rateQuant += 1;
+    // var tempAvg = beerList[index].rateSum / beerList[index].rateQuant;
+    // beerList[index].rating = tempAvg.toFixed(1);
+    // console.log(beerList[index].rating);
+  // };
+
+  var addRating = function (name, rating){
+    console.log(name + " " + rating);
+    var tempIndex;
+    for (i=0; i<beerList.length; i++){
+      if (name === beerList[i].name){
+        tempIndex = i;
+      }
+    }
+    beerList[tempIndex].rateSum += rating;
+    beerList[tempIndex].rateQuant += 1;
+    var tempAvg = beerList[tempIndex].rateSum / beerList[tempIndex].rateQuant;
+    beerList[tempIndex].rating = tempAvg.toFixed(1);
+    console.log(beerList[tempIndex].rating);
   };
+
+
+  var sortOrder = {
+    is: false
+  };
+
+  var sortBeers = function (){
+    console.log(sortOrder.is);
+    sortOrder.is = !sortOrder.is;
+    console.log(sortOrder.is);
+  }
 
   return {
     beerList: beerList,
     addBeer: addBeer,
     removeBeer: removeBeer,
-    addRating: addRating
+    addRating: addRating,
+    sortBeers: sortBeers,
+    sortOrder: sortOrder
   };
 })

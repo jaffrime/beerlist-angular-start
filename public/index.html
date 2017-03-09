@@ -9,7 +9,7 @@
 <body ng-app="beerListApp">
     <div ng-controller="mainCtrl" class="container">
         <div class="row">
-            <div class="col-md-6 col-md-offset-3">
+            <div class="col-md-10 col-md-offset-1">
                 <h1 class="text-center">BeerList</h1>
                 <h3>{{inputName}}</h3>
                 <div class="page-header">
@@ -17,9 +17,10 @@
 
                 <!-- render beers here -->
 
-                <div ng-repeat="beers in beerList">
+                <div ng-repeat="beers in beerList | orderBy: 'rating' : sortOrder.is track by $index">
+                  <!-- <h1>{{$index}} {{sortOrder.is}}</h1> -->
                   <div class="row">
-                    <div class="beers">
+                    <div class="beers col-md-6">
                       <h3>{{beers.name}}</h3>
                       <img ng-src={{beers.image}}>
                       <p>Style: {{beers.style}} <br/> ABV: {{beers.abv}}</p>
@@ -28,7 +29,7 @@
                           <label> Beer Rating: {{beers.rating}} </label><br>
                           <select ng-model="userRating" ng-options="rating for rating in ratings">
                           </select>
-                          <button type="button" ng-click="addRating($index, userRating)">Rate!</button><br>
+                          <button type="button" ng-click="addRating(beers.name, userRating)">Rate!</button><br>
 
                     </div>
                   </div>
@@ -50,10 +51,13 @@
                         <input type="text" class="form-control" placeholder="Image URL" ng-model="new.image"></input>
                     </div>
                     <button type="button" ng-click="addBeer(new)" class="btn btn-primary">Add</button>
+                    <button type="button" ng-click="sortBeers()" class="btn btn-primary">Sort by Rating</button>
+
                 </form>
             </div>
         </div>
     </div>
+
     <script src="angular/angular.min.js"></script>
     <script src="angular-ui-bootstrap/dist/ui-bootstrap.js"></script>
     <script src="js/app.js"></script>
