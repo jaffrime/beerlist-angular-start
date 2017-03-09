@@ -1,0 +1,17 @@
+.beers {
+  background-color: #cfcfd1;
+  text-align: left;
+  display: block;
+  padding: 5px;
+  height: 300px;
+  box-shadow: 0 4px 4px rgba(0,0,0,.25);
+
+}
+
+.beers img {
+  max-width: 70%;
+  max-height: 200px;
+  width: auto;
+  height: auto;
+  float: right;
+}
