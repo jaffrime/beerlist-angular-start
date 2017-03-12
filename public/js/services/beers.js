@@ -49,6 +49,16 @@ app.factory("beerFactory", function($http){
   //   // beerList.push(newBeer);
   // };
 
+
+  var getBeers = function () {
+    return $http.get('/beers')
+      .then(function(response) {
+        angular.copy(response.data, beerList);
+      }, function (err) {
+        console.error(err)
+      });
+  };
+
   var addBeer = function (beer){
     console.log(beer);
 
@@ -62,11 +72,30 @@ app.factory("beerFactory", function($http){
       rating: 0
     };
 
-    beerList.push(newBeer);
+    // beerList.push(newBeer);
+
+    return $http.post('/beers', newBeer)
+      .then(function(response) {
+        angular.copy(response.data, beerList);
+        console.log("Beer added!");
+        getBeers();
+      }, function (err) {
+        console.error(err)
+      });
   };
 
   var removeBeer = function (index){
-    beerList.splice(index,1);
+    // beerList.splice(index,1);
+    var tempID = beerList[index]["_id"];
+
+    return $http.delete('/beers/'+tempID)
+      .then(function(response) {
+        angular.copy(response.data, beerList);
+        console.log("Beer removed.");
+        getBeers();
+      }, function (err) {
+        console.error(err)
+      });
   };
 
   // old method w/ index
@@ -105,24 +134,6 @@ app.factory("beerFactory", function($http){
     sortOrder.is = !sortOrder.is;
     console.log(sortOrder.is);
   }
-
-  var getBeers = function () {
-    return $http.get('/beers')
-      .then(function(response) {
-        angular.copy(response.data, beerList);
-      }, function (err) {
-        console.error(err)
-      });
-  };
-
-  // var addBeers = function () {
-  //   return $http.post('/beers')
-  //     .then(function(response) {
-  //       angular.copy(response.data, beerList);
-  //     }, function (err) {
-  //       console.error(err)
-  //     });
-  // };
 
 
   return {
