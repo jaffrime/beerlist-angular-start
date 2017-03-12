@@ -84,9 +84,14 @@ app.factory("beerFactory", function($http){
       });
   };
 
-  var removeBeer = function (index){
+  var removeBeer = function (beerName){
     // beerList.splice(index,1);
-    var tempID = beerList[index]["_id"];
+    // console.log(beerName);
+    for (i=0;i<beerList.length;i++){
+      if (beerList[i].name === beerName){
+        var tempID = beerList[i]["_id"];
+      }
+    }
 
     return $http.delete('/beers/'+tempID)
       .then(function(response) {

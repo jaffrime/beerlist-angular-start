@@ -80,6 +80,23 @@ app.delete('/beers/:id', function (req, res, next) {
 })
 
 
+// //TODO: put request needs work
+// app.put('/beers/:id', function (req, res, next) {
+//   console.log(req.body);
+//   Beer.findOneAndUpdate({ _id: req.params.id }, req.body, {new: true}, function(err, beer) {
+//     if (err) {
+//       console.error(err)
+//       return next(err);
+//     } else {
+//       res.send(beer);
+//     }
+//     // console.log(req.params.id);
+//     // console.log(req.body);
+//     // res.send(req.body);
+//   });
+// });
+
+
 // error handler to catch 404 and forward to main error handler
 app.use(function(req, res, next) {
   var err = new Error('Not Found');
@@ -97,21 +114,6 @@ app.use(function(err, req, res, next) {
   });
 });
 
-
-// //TODO: put request needs work
-// app.put('/beers/:id', function (req, res, next) {
-//   Beer.findOneAndUpdate({ _id: req.param.id }, req.body, {new: true}, function(err, beer) {
-//     if (err) {
-//       console.error(err)
-//       return next(err);
-//     } else {
-//       res.send(beer);
-//     }
-//   // console.log(req.params.id);
-//   // console.log(req.body);
-//   res.send(req.body);
-//   });
-// });
 
 //start the server
 app.listen(8000, function() {
