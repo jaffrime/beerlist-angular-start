@@ -80,21 +80,17 @@ app.delete('/beers/:id', function (req, res, next) {
 })
 
 
-// //TODO: put request needs work
-// app.put('/beers/:id', function (req, res, next) {
-//   console.log(req.body);
-//   Beer.findOneAndUpdate({ _id: req.params.id }, req.body, {new: true}, function(err, beer) {
-//     if (err) {
-//       console.error(err)
-//       return next(err);
-//     } else {
-//       res.send(beer);
-//     }
-//     // console.log(req.params.id);
-//     // console.log(req.body);
-//     // res.send(req.body);
-//   });
-// });
+app.put('/beers/:id', function (req, res, next) {
+  // console.log(req.body);
+  Beer.findOneAndUpdate({ _id: req.params.id }, req.body, {new: true}, function(err, beer) {
+    if (err) {
+      console.error(err)
+      return next(err);
+    } else {
+      res.send(beer);
+    }
+  });
+});
 
 
 // error handler to catch 404 and forward to main error handler

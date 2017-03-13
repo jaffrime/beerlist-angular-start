@@ -17,7 +17,8 @@
 
                 <!-- render beers here -->
 
-                <div ng-repeat="beers in beerList | orderBy: 'rating' : sortOrder.is track by $index">
+                <div ng-repeat="beers in beerList : track by $index">
+                <!-- <div ng-repeat="beers in beerList | orderBy: 'rating' : sortOrder.is track by $index"> -->
                   <!-- <h1>{{$index}} {{sortOrder.is}}</h1> -->
                   <div class="row">
                     <div class="beers col-md-6 col-sm-6 col-xs-6">
@@ -25,12 +26,13 @@
                       <img ng-src={{beers.image}}>
                       <p>Style: {{beers.style}} <br/> ABV: {{beers.abv}}</p>
                       <input type="button" value="Remove" class="btn btn-danger" ng-click="removeBeer(beers.name)" />
-                      <form>
+                      <!-- <form>
                           <label> Beer Rating: {{beers.rating}} <br>
                             (Ratings: {{beers.rateQuant}}) </label><br>
                           <select ng-model="userRating" ng-options="rating for rating in ratings">
                           </select>
                           <button type="button" ng-click="addRating(beers.name, userRating)">Rate!</button><br>
+                      </form> -->
 
                     </div>
                   </div>
