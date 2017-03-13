@@ -51,12 +51,12 @@ app.get('/beers', function (req, res, next) {
 // })
 
 app.post('/beers', function(req, res, next) {
-  var newBeer = req.body;
-    newBeer.rateSum = 0;
-    newBeer.rateQuant = 0;
-    newBeer.rating = 0;
+  // var newBeer = req.body;
+  //   newBeer.rateSum = 0;
+  //   newBeer.rateQuant = 0;
+  //   newBeer.rating = 0;
 
-  Beer.create(newBeer, function(err, beer) {
+  Beer.create(req.body, function(err, beer) {
     if (err) {
       console.error(err)
       return next(err);

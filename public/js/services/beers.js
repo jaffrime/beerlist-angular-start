@@ -13,7 +13,7 @@ app.factory("beerFactory", function($http){
   };
 
   beerFactory.addBeer = function (beer){
-    console.log(beer);
+    // console.log(beer);
     var newBeer = {
       name: beer.name,
       style: beer.style,
@@ -32,19 +32,12 @@ app.factory("beerFactory", function($http){
       });
   };
 
-  beerFactory.removeBeer = function (beerName){
-    // console.log(beerName);
-    // TODO: remove this and set _id as the function parameter
-    for (i=0;i<beerList.length;i++){
-      if (beerList[i].name === beerName){
-        var tempID = beerList[i]["_id"];
-      }
-    }
-    return $http.delete('/beers/'+tempID)
+  beerFactory.removeBeer = function (beerID){
+    // console.log(beerID);
+    return $http.delete('/beers/' + beerID)
       .then(function(response) {
         console.log("Beer removed.");
         return response.data;
-        getBeers();
       }, function (err) {
         console.error(err)
       });
