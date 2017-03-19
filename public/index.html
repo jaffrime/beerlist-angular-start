@@ -26,13 +26,13 @@
                       <img ng-src={{beers.image}}>
                       <p>Style: {{beers.style}} <br/> ABV: {{beers.abv}}</p>
                       <input type="button" value="Remove" class="btn btn-danger" ng-click="removeBeer(beers._id)" />
-                      <!-- <form>
+                      <form>
                           <label> Beer Rating: {{beers.rating}} <br>
                             (Ratings: {{beers.rateQuant}}) </label><br>
                           <select ng-model="userRating" ng-options="rating for rating in ratings">
                           </select>
-                          <button type="button" ng-click="addRating(beers.name, userRating)">Rate!</button><br>
-                      </form> -->
+                          <button type="button" ng-click="addRating(beers._id, userRating)">Rate!</button><br>
+                      </form>
 
                     </div>
                   </div>

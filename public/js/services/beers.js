@@ -43,21 +43,21 @@ app.factory("beerFactory", function($http){
       });
   };
 
-  // beerFactory.addRating = function (name, rating){
-  //   console.log(name + " " + rating);
-  //   var tempIndex;
-  //   for (i=0; i<beerList.length; i++){
-  //     if (name === beerList[i].name){
-  //       tempIndex = i;
-  //     }
-  //   }
-  //   beerList[tempIndex].rateSum += rating;
-  //   beerList[tempIndex].rateQuant += 1;
-  //   var tempAvg = beerList[tempIndex].rateSum / beerList[tempIndex].rateQuant;
-  //   beerList[tempIndex].rating = tempAvg.toFixed(1);
-  //   console.log(beerList[tempIndex].rating);
-  // };
-  //
+  beerFactory.addRating = function (id, rating){
+    console.log(id + " " + rating);
+    var tempIndex;
+    for (i=0; i<beerList.length; i++){
+      if (name === beerList[i].name){
+        tempIndex = i;
+      }
+    }
+    beerList[tempIndex].rateSum += rating;
+    beerList[tempIndex].rateQuant += 1;
+    var tempAvg = beerList[tempIndex].rateSum / beerList[tempIndex].rateQuant;
+    beerList[tempIndex].rating = tempAvg.toFixed(1);
+    console.log(beerList[tempIndex].rating);
+  };
+
   // beerFactory.sortOrder = {
   //   is: false
   // };
