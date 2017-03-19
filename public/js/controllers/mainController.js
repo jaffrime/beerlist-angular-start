@@ -19,6 +19,17 @@ app.controller("mainCtrl", function($scope, beerFactory) {
   // $scope.sortBeers = beerFactory.sortBeers;
   // $scope.sortOrder = beerFactory.sortOrder;
 
+  
+
+  $scope.editBeer = function () {
+    // alert("Edit Button Working");
+
+  };
+
+  $scope.updateBeer = function () {
+
+  };
+
   $scope.getBeers = function() {
     beerFactory.getBeers().then(function (data){
       $scope.beerList = data;

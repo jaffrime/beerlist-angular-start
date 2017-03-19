@@ -58,6 +58,14 @@ app.factory("beerFactory", function($http){
     console.log(beerList[tempIndex].rating);
   };
 
+  beerFactory.editBeer = function () {
+    // $scope.tempBeer =
+  };
+
+  beerFactory.updateBeer = function () {
+
+  };
+
   // beerFactory.sortOrder = {
   //   is: false
   // };
