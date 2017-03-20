@@ -66,6 +66,7 @@ app.post('/beers', function(req, res, next) {
   });
 });
 
+
 app.delete('/beers/:id', function (req, res, next) {
   Beer.remove({_id:req.params.id}, function (err) {
     // if (err) throw err;

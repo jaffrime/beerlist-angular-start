@@ -30,6 +30,15 @@ app.factory("beerFactory", function($http){
       }, function (err) {
         console.error(err)
       });
+
+    /* Longer way of writing the above code...
+    var promise = $http.post('/beers', newBeer);
+    var responseParser = function(response){
+      return response.data;
+    }
+    promise.then(responseParser);
+    return promise; */
+
   };
 
   beerFactory.removeBeer = function (beerID){
@@ -41,6 +50,18 @@ app.factory("beerFactory", function($http){
       }, function (err) {
         console.error(err)
       });
+  };
+
+  beerFactory.updateBeer = function (beerEdit) {
+    console.log(beerEdit);
+    return $http.put('/beers/' + beerEdit._id, beerEdit)
+      .then(function(response) {
+        console.log("Beer Edited.");
+        return response.data;
+      }, function (err) {
+        console.error(err)
+      });
+
   };
 
   beerFactory.addRating = function (id, rating){
@@ -56,14 +77,6 @@ app.factory("beerFactory", function($http){
     var tempAvg = beerList[tempIndex].rateSum / beerList[tempIndex].rateQuant;
     beerList[tempIndex].rating = tempAvg.toFixed(1);
     console.log(beerList[tempIndex].rating);
-  };
-
-  beerFactory.editBeer = function () {
-    // $scope.tempBeer =
-  };
-
-  beerFactory.updateBeer = function () {
-
   };
 
   // beerFactory.sortOrder = {
