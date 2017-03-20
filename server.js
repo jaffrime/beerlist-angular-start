@@ -67,6 +67,29 @@ app.post('/beers', function(req, res, next) {
 });
 
 
+// cleaned up w/ help from lesson
+app.post('/beers/:id/reviews', function(req, res, next) {
+
+  Beer.findById(req.params.id, function(err, foundBeer) { //if using "find", need to work w/ array (foundBeer[x]...)
+    if (err) {
+      console.error(err)
+      return next(err);
+    } else if (!foundBeer) {
+        return res.send("Error! No beer found with that ID");
+    } else {
+        foundBeer.reviews.push(req.body);
+        foundBeer.save(function(err, updatedBeer) {
+          if (err) {
+            return next(err);
+          } else {
+            res.send(updatedBeer);
+          }
+        });
+      }
+  });
+});
+
+
 app.delete('/beers/:id', function (req, res, next) {
   Beer.remove({_id:req.params.id}, function (err) {
     // if (err) throw err;
@@ -81,6 +104,12 @@ app.delete('/beers/:id', function (req, res, next) {
 })
 
 
+// app.delete('/beers/:id/reviews', function (req, res, next) {
+//   Beer.findById(req.params.id, )
+// });
+
+
+
 app.put('/beers/:id', function (req, res, next) {
   // console.log(req.body);
   Beer.findOneAndUpdate({ _id: req.params.id }, req.body, {new: true}, function(err, beer) {
@@ -92,6 +121,7 @@ app.put('/beers/:id', function (req, res, next) {
     }
   });
 });
+
 
 
 // error handler to catch 404 and forward to main error handler

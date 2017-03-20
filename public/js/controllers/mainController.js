@@ -3,6 +3,13 @@ app.controller("mainCtrl", function($scope, beerFactory) {
   window.MY_SCOPE = $scope;
 
   // $scope.beerList = []; // don't need?
+
+  $scope.getBeers = function() {
+    beerFactory.getBeers().then(function (data){
+      $scope.beerList = data;
+    });
+  };
+
   $scope.addBeer = function (newBeer) {
     beerFactory.addBeer(newBeer).then(function(beer){
       $scope.getBeers();
@@ -45,7 +52,6 @@ app.controller("mainCtrl", function($scope, beerFactory) {
     beerFactory.updateBeer(beerEdit).then(function(beer){
       $scope.getBeers();
     });
-
   };
 
   // $scope.addRating = beerFactory.addRating;
@@ -53,11 +59,8 @@ app.controller("mainCtrl", function($scope, beerFactory) {
   // $scope.sortBeers = beerFactory.sortBeers;
   // $scope.sortOrder = beerFactory.sortOrder;
 
-
-  $scope.getBeers = function() {
-    beerFactory.getBeers().then(function (data){
-      $scope.beerList = data;
-    });
+  $scope.addReview = function () {
+    
   };
 
   $scope.getBeers();
