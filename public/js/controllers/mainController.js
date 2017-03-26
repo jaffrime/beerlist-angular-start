@@ -5,9 +5,13 @@ app.controller("mainCtrl", function($scope, beerFactory) {
   // $scope.beerList = []; // don't need?
 
   $scope.getBeers = function() {
-    beerFactory.getBeers().then(function (data){
-      $scope.beerList = data;
-    });
+    beerFactory.getBeers()
+      .then(function (data){
+        $scope.beerList = data;
+      })
+      .catch (function(error) {
+        console.log('error', error);
+      });
   };
 
   $scope.addBeer = function (newBeer) {
@@ -20,7 +24,13 @@ app.controller("mainCtrl", function($scope, beerFactory) {
         $scope.getBeers();
       }) */
     })
+    .catch(errorHandler)
   };
+
+  // from Ronen, on error handling
+  function errorHandler(error) {
+    alert(error);
+  }
 
   $scope.removeBeer = function(id) {
     beerFactory.removeBeer(id).then(function(beer){
@@ -60,7 +70,7 @@ app.controller("mainCtrl", function($scope, beerFactory) {
   // $scope.sortOrder = beerFactory.sortOrder;
 
   $scope.addReview = function () {
-    
+
   };
 
   $scope.getBeers();

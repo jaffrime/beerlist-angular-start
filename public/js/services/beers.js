@@ -12,6 +12,15 @@ app.factory("beerFactory", function($http){
       });
   };
 
+  beerFactory.getBeer = function (id) {
+    return $http.get('/beers/' + id)
+      .then(function(response) {
+        return response.data;
+      }, function (err) {
+        console.error(err)
+      });
+  };
+
   beerFactory.addBeer = function (beer){
     // console.log(beer);
     var newBeer = {
@@ -89,6 +98,12 @@ app.factory("beerFactory", function($http){
   //   console.log(sortOrder.is);
   // }
 
+  beerFactory.addReview = function (id, review){
+    return $http.post('/beers/'+id+'/reviews/', review)
+      .then(function(response){
+          return response.data;
+      })
+  };
 
   return beerFactory;
 })

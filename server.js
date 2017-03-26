@@ -2,7 +2,7 @@
 var express = require('express');
 var mongoose = require('mongoose');
 var bodyParser = require('body-parser');
-var Beer = require("./models/BeerModel"); //NOTE beneath?
+var Beer = require("./models/BeerModel");
 var request = require('request'); //not actually needed
 
 //starting server
@@ -24,6 +24,17 @@ app.get('/beers', function (req, res, next) {
       return next(error);
     } else {
       res.send(beers);
+    }
+  })
+})
+
+app.get('/beers/:id', function (req, res, next) {
+  Beer.findById(req.params.id, function(err, beer){
+    if (err) {
+      console.error(error)
+      return next(error);
+    } else {
+      res.send(beer);
     }
   })
 })
@@ -144,5 +155,5 @@ app.use(function(err, req, res, next) {
 
 //start the server
 app.listen(8000, function() {
-  console.log("Fullstack project. Listening on 8000.")
+  console.log("Full-beer-stack project. Listening on 8000.")
 });
