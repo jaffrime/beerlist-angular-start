@@ -2,145 +2,54 @@
 var express = require('express');
 var mongoose = require('mongoose');
 var bodyParser = require('body-parser');
-var Beer = require("./models/BeerModel");
+var passport = require('passport');
+var LocalStrategy = require('passport-local').Strategy;
+var session = require('express-session');
 var request = require('request'); //not actually needed
+var beerRoutes = require('./routes/beerRoutes');
+var userRoutes = require('./routes/userRoutes');
+
+mongoose.connect('mongodb://localhost/beers');
 
 //starting server
 var app = express();
-mongoose.connect("mongodb://localhost/beers")
 
-//middleware
-app.use(bodyParser.json())
-app.use(bodyParser.urlencoded({ extended: false }))
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static('public'));
 app.use(express.static('node_modules'));
 
+//configure passport and session middleware
+app.use(expressSession({
+    secret: 'yourSecretHere',
+    resave: false,
+    saveUninitialized: false
+}));
+app.use(passport.initialize());
+app.use(passport.session());
+
+// configure passport-local to use user model for authentication
+passport.use(User.createStrategy());
+passport.serializeUser(User.serializeUser()):
+passport.deserializeUser(User.deserializeUser());
 
 //API routes
-app.get('/beers', function (req, res, next) {
-  Beer.find(function(err, beers){
-    if (err) {
-      console.error(error)
-      return next(error);
-    } else {
-      res.send(beers);
-    }
-  })
-})
 
-app.get('/beers/:id', function (req, res, next) {
-  Beer.findById(req.params.id, function(err, beer){
-    if (err) {
-      console.error(error)
-      return next(error);
-    } else {
-      res.send(beer);
-    }
-  })
-})
+//This tells the server that when a request comes into '/beers' that it should use the routes in 'beerRoutes' and those are in our new beerRoutes.js file
+app.use('/beers', beerRoutes);
+app.use('/users', userRoutes);
 
-// original post request - not functioning correctly
-// app.post('/beers', function (req, res, next) {
-//   var n = req.body;
-//   var newBeer = new Beer(
-//     {name: n.name},
-//     {style: n.style},
-//     {abv: n.abv},
-//     {image: n.image},
-//     {rateSum: 0},
-//     {rateQuant: 0},
-//     {rating: 0}
-//   );
-//   console.log(newBeer);
-//   newBeer.save(function(error, result){
-//     if (error) {
-//       return console.error(error);
-//     }
-//     console.log(result);
-//   });
-//   res.send(n);
-// })
-
-app.post('/beers', function(req, res, next) {
-  // var newBeer = req.body;
-  //   newBeer.rateSum = 0;
-  //   newBeer.rateQuant = 0;
-  //   newBeer.rating = 0;
-
-  Beer.create(req.body, function(err, beer) {
-    if (err) {
-      console.error(err)
-      return next(err);
-    } else {
-      res.json(beer);
-    }
-  });
+app.all('*', function(req, res) {
+  res.sendFile(__dirname + "/public/index.html")
 });
 
-
-// cleaned up w/ help from lesson
-app.post('/beers/:id/reviews', function(req, res, next) {
-
-  Beer.findById(req.params.id, function(err, foundBeer) { //if using "find", need to work w/ array (foundBeer[x]...)
-    if (err) {
-      console.error(err)
-      return next(err);
-    } else if (!foundBeer) {
-        return res.send("Error! No beer found with that ID");
-    } else {
-        foundBeer.reviews.push(req.body);
-        foundBeer.save(function(err, updatedBeer) {
-          if (err) {
-            return next(err);
-          } else {
-            res.send(updatedBeer);
-          }
-        });
-      }
-  });
-});
-
-
-app.delete('/beers/:id', function (req, res, next) {
-  Beer.remove({_id:req.params.id}, function (err) {
-    // if (err) throw err;
-    if (err) {
-      console.error(err)
-      return next(err);
-    } else {
-      res.send("Beer deleted... :-(")
-    }
-
-  })
-})
-
-
-// app.delete('/beers/:id/reviews', function (req, res, next) {
-//   Beer.findById(req.params.id, )
-// });
-
-
-
-app.put('/beers/:id', function (req, res, next) {
-  // console.log(req.body);
-  Beer.findOneAndUpdate({ _id: req.params.id }, req.body, {new: true}, function(err, beer) {
-    if (err) {
-      console.error(err)
-      return next(err);
-    } else {
-      res.send(beer);
-    }
-  });
-});
-
-
-
+// not needed w/ catch-all above
 // error handler to catch 404 and forward to main error handler
-app.use(function(req, res, next) {
-  var err = new Error('Not Found');
-  err.status = 404;
-  next(err);
-});
+// app.use(function(req, res, next) {
+//   var err = new Error('Not Found');
+//   err.status = 404;
+//   next(err);
+// });
 
 // main error handler
 // warning - not for use in production code!
